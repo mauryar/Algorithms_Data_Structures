@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package Interface;
- 
+
 import Business.ReqServiceDispatcher;
 import Business.RequestGenerator;
 import Business.ServiceQueue;
-
 
 /**
  *
@@ -22,11 +21,12 @@ public class MainJFrame extends javax.swing.JFrame {
     private RequestGenerator requestGenerator;
     private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
+
     public MainJFrame() {
         initComponents();
         requestGenerator = new RequestGenerator();
         serviceQueue = new ServiceQueue();
-        reqServiceDispatcher = new ReqServiceDispatcher(requestGenerator); 
+        reqServiceDispatcher = new ReqServiceDispatcher(requestGenerator);
     }
 
     /**
@@ -102,16 +102,16 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBtnActionPerformed
-   
-        CreateJPanel createJPanel=new CreateJPanel(requestGenerator, serviceQueue, reqServiceDispatcher);
-        
+
+        CreateJPanel createJPanel = new CreateJPanel(requestGenerator, serviceQueue, reqServiceDispatcher);
+
         splitPane.setRightComponent(createJPanel);
     }//GEN-LAST:event_inputBtnActionPerformed
 
     private void viewOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOutputActionPerformed
-              
-        ViewJPanel viewJPanel=new ViewJPanel();
-        
+
+        ViewJPanel viewJPanel = new ViewJPanel();
+
         splitPane.setRightComponent(viewJPanel);
     }//GEN-LAST:event_viewOutputActionPerformed
 

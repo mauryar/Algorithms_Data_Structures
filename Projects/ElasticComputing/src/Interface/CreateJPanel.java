@@ -6,9 +6,11 @@
 package Interface;
 
 import Business.ReqServiceDispatcher;
+
 import Business.RequestGenerator;
 import Business.ServiceQueue;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mrunalini
@@ -18,17 +20,15 @@ public class CreateJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateJPanel
      */
-    
-  
     private RequestGenerator requestGenerator;
     private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
-    
+
     public CreateJPanel(RequestGenerator requestGenerator, ServiceQueue serviceQueue, ReqServiceDispatcher reqServiceDispatcher) {
         initComponents();
-      this.requestGenerator = requestGenerator;
-      this.serviceQueue = serviceQueue;
-      this.reqServiceDispatcher = reqServiceDispatcher;
+        this.requestGenerator = requestGenerator;
+        this.serviceQueue = serviceQueue;
+        this.reqServiceDispatcher = reqServiceDispatcher;
     }
 
     /**
@@ -114,20 +114,16 @@ public class CreateJPanel extends javax.swing.JPanel {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
         // Binding the user input to the product object
-        
+
         requestGenerator.setReqRate(reqServiceDispatcher, Integer.parseInt(reqRate.getText()));
         serviceQueue.setProcessingTime(Integer.parseInt(processTime.getText()));
-  
-        JOptionPane.showMessageDialog(null,"User input taken...processing requests..");
+
+        JOptionPane.showMessageDialog(null, "User input taken...processing requests..");
         //reqServiceDispatcher.checkReqQueueEmpty();
         //System.out.println("check Queue"+requestGenerator.getReqQueue().dequeue());
     }//GEN-LAST:event_submitBtnActionPerformed
 
     // Prompt user that product is successfully created
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
