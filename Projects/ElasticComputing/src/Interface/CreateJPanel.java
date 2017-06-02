@@ -8,6 +8,7 @@ package Interface;
 import Business.ActiveServiceQueue;
 import Business.MyThread;
 import Business.ReqServiceDispatcher;
+
 import Business.RequestGenerator;
 import Business.ServiceQueue;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,11 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+<<<<<<< HEAD
 import javax.swing.Timer;
+=======
+
+>>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
 /**
  *
  * @author Mrunalini
@@ -25,11 +30,10 @@ public class CreateJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateJPanel
      */
-    
-  
     private RequestGenerator requestGenerator;
     //private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
+<<<<<<< HEAD
     private ActiveServiceQueue activeServiceQueue;
     
     public CreateJPanel( RequestGenerator requestGenerator, ReqServiceDispatcher reqServiceDispatcher) {
@@ -38,6 +42,14 @@ public class CreateJPanel extends javax.swing.JPanel {
       //this.serviceQueue = serviceQueue;
       this.reqServiceDispatcher = reqServiceDispatcher;
       this.activeServiceQueue = reqServiceDispatcher.getActiveServiceQueue();
+=======
+
+    public CreateJPanel(RequestGenerator requestGenerator, ServiceQueue serviceQueue, ReqServiceDispatcher reqServiceDispatcher) {
+        initComponents();
+        this.requestGenerator = requestGenerator;
+        this.serviceQueue = serviceQueue;
+        this.reqServiceDispatcher = reqServiceDispatcher;
+>>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
     }
 
     /**
@@ -123,6 +135,7 @@ public class CreateJPanel extends javax.swing.JPanel {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         // TODO add your handling code here:
         // Binding the user input to the product object
+<<<<<<< HEAD
         
         //Thread thread = new RequestGenerator(Integer.parseInt(reqRate.getText()));
         //thread.start();
@@ -236,15 +249,18 @@ public class CreateJPanel extends javax.swing.JPanel {
         
   
         //JOptionPane.showMessageDialog(null,"User input taken...processing requests..");
+=======
+
+        requestGenerator.setReqRate(reqServiceDispatcher, Integer.parseInt(reqRate.getText()));
+        serviceQueue.setProcessingTime(Integer.parseInt(processTime.getText()));
+
+        JOptionPane.showMessageDialog(null, "User input taken...processing requests..");
+>>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
         //reqServiceDispatcher.checkReqQueueEmpty();
         //System.out.println("check Queue"+requestGenerator.getReqQueue().dequeue());
     }//GEN-LAST:event_submitBtnActionPerformed
 
     // Prompt user that product is successfully created
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
