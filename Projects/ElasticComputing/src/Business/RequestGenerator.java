@@ -7,7 +7,10 @@ package Business;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.SwingWorker;
+
 
 
 
@@ -15,7 +18,7 @@ import javax.swing.Timer;
  *
  * @author rajan
  */
-public class RequestGenerator {
+public class RequestGenerator{
     
     private int reqRate;
     private ReqQueue reqQueue;
@@ -31,6 +34,7 @@ public class RequestGenerator {
 
     public RequestGenerator(){
         reqQueue = new ReqQueue();
+        
     }
     public int getReqRate() {
         return reqRate;
@@ -38,7 +42,10 @@ public class RequestGenerator {
 
     public void setReqRate(ReqServiceDispatcher reqServiceDispatcher, int reqRate) {
         this.reqRate = reqRate;
-        Timer timer = new Timer(1000, new ActionListener() {
+       	
+
+        
+        /*Timer timer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             for(int i = 0; i< reqRate; i++){
@@ -52,6 +59,10 @@ public class RequestGenerator {
 });
         timer.setRepeats(true);
         timer.start();
+        */
+        
+        
+
     }
 
     
@@ -64,5 +75,6 @@ public class RequestGenerator {
         return reqQueue;
     }
     
+
  
 }

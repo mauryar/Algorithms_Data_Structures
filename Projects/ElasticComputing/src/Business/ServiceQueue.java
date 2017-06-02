@@ -10,7 +10,12 @@ package Business;
  * @author rajan
  */
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ServiceQueue {
     
     private int processingTime;
@@ -36,6 +41,20 @@ public class ServiceQueue {
         currentSize = 0;
         front = maxQue - 1;
         rear = maxQue - 1;
+        /*
+       Timer timer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+         
+            
+            dequeue();
+            System.out.println("dequeue done!");   
+        }
+        
+    });
+       timer.setRepeats(true);
+       timer.start();
+       */
     }
 
     /**
@@ -106,5 +125,21 @@ public class ServiceQueue {
             //Logger.getLogger(ServiceQueue.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void sqTimerDeque(){
+          System.out.println("sqTimerDeque !");
+      Timer timerSq = new Timer();
+      TimerTask timertaskSq = new TimerTask() {
+              @Override
+              public void run() {
+                  System.out.println("sqTimerDeque : deque");
+                  dequeue();
+              }
+          };
+      timerSq.scheduleAtFixedRate(timertaskSq, 0, 1000);
+       
+    }
+    
+
     
 }

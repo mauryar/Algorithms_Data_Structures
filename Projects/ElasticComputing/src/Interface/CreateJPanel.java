@@ -5,10 +5,17 @@
  */
 package Interface;
 
+import Business.ActiveServiceQueue;
+import Business.MyThread;
 import Business.ReqServiceDispatcher;
 import Business.RequestGenerator;
 import Business.ServiceQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 /**
  *
  * @author Mrunalini
@@ -21,14 +28,16 @@ public class CreateJPanel extends javax.swing.JPanel {
     
   
     private RequestGenerator requestGenerator;
-    private ServiceQueue serviceQueue;
+    //private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
+    private ActiveServiceQueue activeServiceQueue;
     
-    public CreateJPanel(RequestGenerator requestGenerator, ServiceQueue serviceQueue, ReqServiceDispatcher reqServiceDispatcher) {
+    public CreateJPanel( RequestGenerator requestGenerator, ReqServiceDispatcher reqServiceDispatcher) {
         initComponents();
       this.requestGenerator = requestGenerator;
-      this.serviceQueue = serviceQueue;
+      //this.serviceQueue = serviceQueue;
       this.reqServiceDispatcher = reqServiceDispatcher;
+      this.activeServiceQueue = reqServiceDispatcher.getActiveServiceQueue();
     }
 
     /**
@@ -115,10 +124,118 @@ public class CreateJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Binding the user input to the product object
         
-        requestGenerator.setReqRate(reqServiceDispatcher, Integer.parseInt(reqRate.getText()));
-        serviceQueue.setProcessingTime(Integer.parseInt(processTime.getText()));
+        //Thread thread = new RequestGenerator(Integer.parseInt(reqRate.getText()));
+        //thread.start();
+        
+        //Thread threadD = new ReqServiceDispatcher(requestGenerator);
+        //threadD.start();
+        //serviceQueue.setProcessingTime(Integer.parseInt(processTime.getText()));
+        //requestGenerator.setReqRate(reqServiceDispatcher, Integer.parseInt(reqRate.getText()));
+        
+        Thread t1 = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                while(true){
+                    synchronized(this){
+                          //timer starts
+                          requestGenerator.setReqRate(reqServiceDispatcher, Integer.parseInt(reqRate.getText()));
+                for(int i = 0; i< requestGenerator.getReqRate(); i++){
+                            requestGenerator.getReqQueue().enqueue((int) (Math.random() * 50 + 1));
+                            System.out.println("in timer");
+                        }
+                /*
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for(int i = 0; i< requestGenerator.getReqRate(); i++){
+                            requestGenerator.getReqQueue().enqueue((int) (Math.random() * 50 + 1));
+                            System.out.println("in timer");
+                        }
+                    }
+                    
+                });
+                timer.setRepeats(true);
+                timer.start();
+                */
+                notify();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(CreateJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                //timer ends
+
+                    }
+                }
+              
+            }
+        });
+ 
+        // Create consumer thread
+        Thread t2 = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                
+                while(true){
+                    synchronized(this){
+                        //dispatcher starts
+                while (!requestGenerator.getReqQueue().isEmpty()) {
+                    
+                    int request;
+                    request = requestGenerator.getReqQueue().dequeue().data;
+                    //if(serviceQueue==null||serviceQueue.isFull())=
+                    int size=activeServiceQueue.getServiceQueueList().size();
+                    if(size==0||activeServiceQueue.getServiceQueueList().get(size-1).isFull())
+                    {
+                        ServiceQueue serviceQueue  = new ServiceQueue();
+                        serviceQueue.sqTimerDeque();
+                        activeServiceQueue.getServiceQueueList().add(serviceQueue);
+                        System.out.println("Service Queue Name : "+activeServiceQueue.getServiceQueueList());
+                    }
+                    //inserting into last queue
+                    activeServiceQueue.getServiceQueueList().get(activeServiceQueue.getServiceQueueList().size()-1).enqueue(request);
+                    
+                     
+                }
+                System.out.println("Total Queue created: " + activeServiceQueue.getServiceQueueList().size() );
+                System.out.println("Service Queue Name : "+activeServiceQueue.getServiceQueueList());
+                
+                notify();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(CreateJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                //dispatcher ends
+                    }
+                }
+                
+                
+            }
+            
+        });
+ 
+        // Start both threads
+        t1.start();
+        t2.start();
+        
+        
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CreateJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
   
-        JOptionPane.showMessageDialog(null,"User input taken...processing requests..");
+        //JOptionPane.showMessageDialog(null,"User input taken...processing requests..");
         //reqServiceDispatcher.checkReqQueueEmpty();
         //System.out.println("check Queue"+requestGenerator.getReqQueue().dequeue());
     }//GEN-LAST:event_submitBtnActionPerformed

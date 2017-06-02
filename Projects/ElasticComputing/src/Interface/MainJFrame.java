@@ -5,9 +5,13 @@
  */
 package Interface;
  
+import Business.ActiveServiceQueue;
+import Business.MyThread;
 import Business.ReqServiceDispatcher;
 import Business.RequestGenerator;
 import Business.ServiceQueue;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -20,13 +24,17 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     private RequestGenerator requestGenerator;
-    private ServiceQueue serviceQueue;
+    //private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
+    //private ActiveServiceQueue activeServiceQueue;
+    
     public MainJFrame() {
         initComponents();
         requestGenerator = new RequestGenerator();
-        serviceQueue = new ServiceQueue();
+      //  serviceQueue = new ServiceQueue();
         reqServiceDispatcher = new ReqServiceDispatcher(requestGenerator); 
+      //  activeServiceQueue = new ActiveServiceQueue(); 
+        
     }
 
     /**
@@ -103,7 +111,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void inputBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBtnActionPerformed
    
-        CreateJPanel createJPanel=new CreateJPanel(requestGenerator, serviceQueue, reqServiceDispatcher);
+        CreateJPanel createJPanel=new CreateJPanel(  requestGenerator, reqServiceDispatcher);
         
         splitPane.setRightComponent(createJPanel);
     }//GEN-LAST:event_inputBtnActionPerformed
@@ -146,6 +154,7 @@ public class MainJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainJFrame().setVisible(true);
+                
             }
         });
     }

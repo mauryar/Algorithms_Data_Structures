@@ -9,7 +9,7 @@ import Business.ReqQueue;
  *
  * @author rajan
  */
-public class ReqServiceDispatcher {
+public class ReqServiceDispatcher{
    
    private ReqQueue reqQueue;
    private ActiveServiceQueue activeServiceQueue;
@@ -49,7 +49,7 @@ public class ReqServiceDispatcher {
         this.activeServiceQueue = activeServiceQueue;
     }
  
-
+/*
     public void checkReqQueueEmpty(){
    while(!reqQueue.isEmpty()){
         System.out.println("Inloop"+reqQueue);
@@ -70,6 +70,12 @@ public class ReqServiceDispatcher {
                         activeServiceQueue.getServiceQueueList().get(i).enqueue(request);
                         System.out.println("in dispatcher - else part"+request);
                         break;
+                    }else{
+                        request = reqQueue.dequeue().data;
+                        ServiceQueue serviceQueue = new ServiceQueue();
+                activeServiceQueue.getServiceQueueList().add(serviceQueue);
+                serviceQueue.enqueue(request);
+                System.out.println("in dispatcher - for -else part"+request);
                     }
                 }
             }
@@ -78,4 +84,33 @@ public class ReqServiceDispatcher {
     }
 
     }
+*/
+    
+    
+   
+   /*
+    public void checkReqQueueEmpty() {
+        while (!reqQueue.isEmpty()) {
+
+                int request;
+                request = reqQueue.dequeue().data;
+                //if(serviceQueue==null||serviceQueue.isFull())=
+                int size=activeServiceQueue.getServiceQueueList().size();
+                if(size==0||activeServiceQueue.getServiceQueueList().get(size-1).isFull())   
+                {
+                   ServiceQueue serviceQueue  = new ServiceQueue();
+                   activeServiceQueue.getServiceQueueList().add(serviceQueue);
+                   System.out.println("Service Queue Name : "+activeServiceQueue.getServiceQueueList());
+                }    
+                //inserting into last queue
+                activeServiceQueue.getServiceQueueList().get(activeServiceQueue.getServiceQueueList().size()-1).enqueue(request);
+               
+            
+        }
+         System.out.println("Total Queue created: " + activeServiceQueue.getServiceQueueList().size() );
+         System.out.println("Service Queue Name : "+activeServiceQueue.getServiceQueueList());
+
+    }
+*/
 }
+
