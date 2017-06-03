@@ -13,6 +13,7 @@ public class ReqQueue {
     
     private static Node front = null;
     private static Node rear = null;
+    private static int countInputRequest = 0;
     
     public class Node {
     
@@ -36,12 +37,14 @@ public class ReqQueue {
         if (front==null)
         {
             front = rear = newNode;
+            countInputRequest++;
         }
         
         else
         {
             rear.next = newNode;
             rear = newNode;
+            countInputRequest++;
         }
         rear.next = front;    // next of rear is front in circular queue
     }
@@ -57,6 +60,7 @@ public class ReqQueue {
         {
             element = front ;
             front = rear = null;
+            countInputRequest--;
         }
         else
         {
@@ -64,11 +68,12 @@ public class ReqQueue {
             element = temp;
             front = front.next;
             rear.next = front;
+            countInputRequest--;
         }
         return element;
     }
     
-    public void display()
+    public int display()
     {
         
         Node temp = front;
@@ -78,6 +83,7 @@ public class ReqQueue {
                 temp = temp.next;
             } while (temp != front);
         }
+        return countInputRequest;
     }
     
     

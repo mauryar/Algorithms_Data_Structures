@@ -19,6 +19,8 @@ import java.util.TimerTask;
 public class ServiceQueue {
     
     private int processingTime;
+    private boolean checkStop = true;
+    
 
     public int getProcessingTime() {
         return processingTime;
@@ -126,20 +128,52 @@ public class ServiceQueue {
         }
     }
     
-    public void sqTimerDeque(){
-          System.out.println("sqTimerDeque !");
-      Timer timerSq = new Timer();
-      TimerTask timertaskSq = new TimerTask() {
-              @Override
-              public void run() {
-                  System.out.println("sqTimerDeque : deque");
-                  dequeue();
-              }
-          };
-      timerSq.scheduleAtFixedRate(timertaskSq, 0, 1000);
+    public void sqTimerDeque(int userProcessRate, boolean flag, int numberOfQueuesAL){
+          //System.out.println("sqTimerDeque !");
+          Timer timerSq = new Timer();
+           checkStop = flag;
+           System.out.println("checkStop :"+checkStop);
+      TimerTask timertaskSq;
+        timertaskSq = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("checkStop in dequeue :"+checkStop);
+                if(checkStop)
+                {
+                    
+                    int dqueueValue = dequeue();
+                    System.out.println("sqTimerDeque : dequevalue is: "+dqueueValue);
+                    int elementCountOfSQ = size();
+                     System.out.println("Q elementCountOfSQ: "+elementCountOfSQ);
+                     System.out.println("numberOfQueues in ArrayList: "+numberOfQueuesAL);
+                     if(elementCountOfSQ==0)
+                     { System.out.println("timer stoped for SQ index: "+numberOfQueuesAL);
+                 if(numberOfQueuesAL>=0)
+                 {ActiveServiceQueue.serviceQueueList.remove(numberOfQueuesAL);
+                        timerSq.cancel();
+                        timerSq.purge();}
+                        
+                        
+                    //
+                     }
+                     
+                     
+                }
+                else{
+                    System.out.println("timer stopped");
+                    //checkStop = false;
+                    timerSq.cancel();
+                    timerSq.purge();
+                }
+            }
+        };
+      
+      timerSq.scheduleAtFixedRate(timertaskSq, 0, userProcessRate);
+    // checkStop = false;
+    }
        
     }
     
 
     
-}
+

@@ -4,18 +4,15 @@
  * and open the template in the editor.
  */
 package Interface;
-<<<<<<< HEAD
  
 import Business.ActiveServiceQueue;
 import Business.MyThread;
-=======
-
->>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
 import Business.ReqServiceDispatcher;
 import Business.RequestGenerator;
 import Business.ServiceQueue;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 /**
  *
@@ -29,7 +26,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private RequestGenerator requestGenerator;
     //private ServiceQueue serviceQueue;
     private ReqServiceDispatcher reqServiceDispatcher;
-<<<<<<< HEAD
     //private ActiveServiceQueue activeServiceQueue;
     
     public MainJFrame() {
@@ -39,14 +35,6 @@ public class MainJFrame extends javax.swing.JFrame {
         reqServiceDispatcher = new ReqServiceDispatcher(requestGenerator); 
       //  activeServiceQueue = new ActiveServiceQueue(); 
         
-=======
-
-    public MainJFrame() {
-        initComponents();
-        requestGenerator = new RequestGenerator();
-        serviceQueue = new ServiceQueue();
-        reqServiceDispatcher = new ReqServiceDispatcher(requestGenerator);
->>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
     }
 
     /**
@@ -61,22 +49,16 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane = new javax.swing.JSplitPane();
         controlJPanel = new javax.swing.JPanel();
         inputBtn = new javax.swing.JButton();
-        viewOutput = new javax.swing.JButton();
         displayJPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        controlJPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         inputBtn.setText("Input");
         inputBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputBtnActionPerformed(evt);
-            }
-        });
-
-        viewOutput.setText("View");
-        viewOutput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewOutputActionPerformed(evt);
             }
         });
 
@@ -86,9 +68,7 @@ public class MainJFrame extends javax.swing.JFrame {
             controlJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(controlJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(viewOutput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(inputBtn)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         controlJPanelLayout.setVerticalGroup(
@@ -96,12 +76,12 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(controlJPanelLayout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(inputBtn)
-                .addGap(46, 46, 46)
-                .addComponent(viewOutput)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
 
         splitPane.setLeftComponent(controlJPanel);
+
+        displayJPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         javax.swing.GroupLayout displayJPanelLayout = new javax.swing.GroupLayout(displayJPanel);
         displayJPanel.setLayout(displayJPanelLayout);
@@ -122,24 +102,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputBtnActionPerformed
-<<<<<<< HEAD
    
         CreateJPanel createJPanel=new CreateJPanel(  requestGenerator, reqServiceDispatcher);
         
-=======
-
-        CreateJPanel createJPanel = new CreateJPanel(requestGenerator, serviceQueue, reqServiceDispatcher);
-
->>>>>>> a22f3acca39876f0cc954b103de907f73c4bc113
         splitPane.setRightComponent(createJPanel);
     }//GEN-LAST:event_inputBtnActionPerformed
-
-    private void viewOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewOutputActionPerformed
-
-        ViewJPanel viewJPanel = new ViewJPanel();
-
-        splitPane.setRightComponent(viewJPanel);
-    }//GEN-LAST:event_viewOutputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,11 +144,12 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
+   
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel controlJPanel;
     private javax.swing.JPanel displayJPanel;
     private javax.swing.JButton inputBtn;
     private javax.swing.JSplitPane splitPane;
-    private javax.swing.JButton viewOutput;
     // End of variables declaration//GEN-END:variables
 }

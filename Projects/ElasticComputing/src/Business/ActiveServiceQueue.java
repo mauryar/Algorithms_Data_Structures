@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ActiveServiceQueue {
     
-    private ArrayList<ServiceQueue> serviceQueueList = new ArrayList<ServiceQueue>();
+    public static ArrayList<ServiceQueue> serviceQueueList = new ArrayList<ServiceQueue>();
 
     public ArrayList<ServiceQueue> getServiceQueueList() {
         return serviceQueueList;
